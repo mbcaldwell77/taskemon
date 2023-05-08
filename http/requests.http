@@ -1,0 +1,146 @@
+@url = http://localhost:8080/api
+
+
+@admin = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhcGkiLCJzdWIiOiJhZG1pbiIsInVzZXJJZCI6MiwiYXV0aG9yaXRpZXMiOlsiQURNSU4iXSwiZXhwIjoxNjgwMjgyNjU5fQ.yL_CTGxzDWk39o_mqv6_mXJoUqVXFa5oRK5gVkNwjDo
+
+POST http://localhost:8080/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "admin"
+}
+
+###
+
+@user = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhcGkiLCJzdWIiOiJ1c2VyIiwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJVU0VSIl0sImV4cCI6MTY4MDI4MjcwM30.kEOdqxWNDOAShW6bXzTagh_WxgBMQedXMfxCCjsbOFg
+
+POST http://localhost:8080/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "user",
+    "password": "user"
+}
+
+###
+
+@bob = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhcGkiLCJzdWIiOiJib2JAam9uZXMuY29tIiwidXNlcklkIjozLCJhdXRob3JpdGllcyI6WyJVU0VSIl0sImV4cCI6MTY4MDI4MjcxNH0.wt8NbgMb4LtWqkXcgvIhEZzMj5DD_VSP1Nco0RY00Ss
+
+POST http://localhost:8080/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "bob@jones.com",
+    "password": "bobspassword1!"
+}
+
+# ------------------------------------------------------------------     USERS
+
+GET {{url}}/user HTTP/1.1
+
+### 
+
+GET {{url}}/user/3 HTTP/1.1
+
+### 
+
+POST http://localhost:8080/create-account HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "bob@jones.com",
+    "password": "bobspassword1!",
+    "email": "bob@jones.com"
+}
+
+
+### edit user
+
+PUT {{url}}/user/3 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{admin}}
+    
+    {
+    "userId" : 3,
+    "username": "bob@jones.com",
+    "password": "bobspassword1!",
+    "email": "bob@test.com"
+    }
+    
+
+# ------------------------------------------------------------------     CHECKLIST
+
+
+GET {{url}}/checklist HTTP/1.1
+
+### 
+
+POST {{url}}/checklist HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{user}}
+
+{
+    "totalCompletion": "0%",
+    "checklistName": "clean",
+    "pokemonId": "3",
+    "pokemon": null,
+    "userId": "3"
+}
+
+### edit checklist
+PUT {{url}}/checklist/8 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{admin}}
+
+{
+    "checklistId": 8,
+    "totalCompletion": "5%",
+    "checklistName": "laundry",
+    "pokemonId": "3",
+    "pokemon": null,
+    "userId": "3"
+}
+
+### delete
+DELETE {{url}}/checklist/3 HTTP/1.1
+Authorization: Bearer {{bob}}
+# ------------------------------------------------------------------     TASKS
+
+GET {{url}}/task HTTP/1.1
+
+### 
+### post task
+### edit task
+### delete
+
+# ------------------------------------------------------------------     POKEMON
+
+GET {{url}}/pokemon HTTP/1.1
+
+### post pokemon
+### edit pokemon
+### delete
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,114 @@
+@url = http://localhost:8080/api
+
+# ------------------------------------------------------------------ TOKENS
+
+@admin = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhcGkiLCJzdWIiOiJhZG1pbiIsInVzZXJJZCI6MiwiYXV0aG9yaXRpZXMiOlsiQURNSU4iXSwiZXhwIjoxNjgwMjg3NjcxfQ.ks0ONPjLaCkPNGfulSMV3YKzAQn0uD2G0O2H5BORQbc
+
+@user = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhcGkiLCJzdWIiOiJ1c2VyIiwidXNlcklkIjoxLCJhdXRob3JpdGllcyI6WyJVU0VSIl0sImV4cCI6MTY4MDI4NzY4Mn0.jY65jFkYBozTMUEPb20S0nHjLGKsdgUB2EXEOrd4-2w
+
+@bob = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhcGkiLCJzdWIiOiJib2JAam9uZXMuY29tIiwidXNlcklkIjozLCJhdXRob3JpdGllcyI6WyJVU0VSIl0sImV4cCI6MTY4MDI4NzcwOH0.ibht_nMiVpaZorf9iXowQYRSW4VQu-UfQIl1MoqJlv4
+
+POST http://localhost:8080/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "admin"
+}
+
+###
+
+POST http://localhost:8080/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "user",
+    "password": "user"
+}
+
+
+###
+
+POST http://localhost:8080/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "bob@jones.com",
+    "password": "bobspassword1!"
+}
+
+###
+
+# ------------------------------------------------------------------     USERS
+
+GET {{url}}/user HTTP/1.1
+
+### 
+
+GET {{url}}/user/3 HTTP/1.1
+
+### 
+
+POST http://localhost:8080/create-account HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "bobby",
+    "password": "bobspassword1!",
+    "email": "bob@jones.com"
+}
+
+###
+
+POST http://localhost:8080/create-account HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "danielle",
+    "password": "bobspassword1!",
+    "email": "danielle@email.com"
+}
+
+### 
+
+GET {{url}}/user HTTP/1.1
+
+
+### put user
+
+PUT {{url}}/user/3 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{admin}}
+    
+    {
+    "userId" : 3,
+    "username": "bob@jones.com",
+    "password": "bobspassword1!",
+    "email": "bob@test.com"
+    }
+
+###
+PUT {{url}}/user/4 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{admin}}
+    
+    {
+    "userId" : 4,
+    "username": "danielle1995",
+    "password": "bobspassword1!",
+    "email": "daniellesotheremail@email.com"
+}
+
+###
+
+GET {{url}}/user HTTP/1.1
+
+### delete
+
+DELETE {{url}}/user/8 HTTP/1.1
+Authorization: Bearer {{bob}}
+
+###
+
+GET {{url}}/user HTTP/1.1
+

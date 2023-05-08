@@ -1,0 +1,77 @@
+@url = http://localhost:8080/api
+
+# ------------------------------------------------------------------ TOKENS
+
+@admin = eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJhcGkiLCJzdWIiOiJhZG1pbiIsInVzZXJJZCI6MiwiYXV0aG9yaXRpZXMiOlsiQURNSU4iXSwiZXhwIjoxNjgwMjkxNjUzfQ.CF1h2G4TnC2gOl-mqTOmSGelDe7FBEo7KInZPz7Ddek
+
+@user = 
+
+@bob = 
+
+POST http://localhost:8080/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "admin"
+}
+
+###
+
+POST http://localhost:8080/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "user",
+    "password": "user"
+}
+
+###
+
+POST http://localhost:8080/authenticate HTTP/1.1
+Content-Type: application/json
+
+{
+    "username": "bob@jones.com",
+    "password": "bobspassword1!"
+}
+
+###
+
+# ------------------------------------------------------------------ CRUD
+
+GET {{url}}/pokemon HTTP/1.1
+
+### post pokemon
+POST {{url}}/pokemon HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{admin}}
+
+{
+    "pokemonName": "Testamon",
+    "imgUrl": "testurl.com"
+}
+
+### put pokemon
+
+PUT {{url}}/pokemon/5 HTTP/1.1
+Content-Type: application/json
+Authorization: Bearer {{admin}}
+
+{
+    "pokemonId": 5,
+    "pokemonName": "Testamon",
+    "imgUrl": "testamon-pic.com"
+}
+
+###
+
+GET {{url}}/pokemon HTTP/1.1
+
+### delete
+DELETE {{url}}/pokemon/5 HTTP/1.1
+Authorization: Bearer {{admin}}
+
+###
+
+GET {{url}}/pokemon HTTP/1.1
