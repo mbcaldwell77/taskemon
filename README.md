@@ -1,0 +1,1 @@
+Disclaimer: This is only a partial representation of the Taskemon project. I no longer have access to the completed project, and so this is what was saved locally. I hope it is still instructive as to the methods used.
